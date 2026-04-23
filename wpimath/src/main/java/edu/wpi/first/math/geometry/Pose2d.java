@@ -399,6 +399,37 @@ public class Pose2d implements Interpolatable<Pose2d>, ProtobufSerializable, Str
     }
   }
 
+  /**
+   * Reflects the {@link Pose2d} across the y-axis, flipping the X coordinate.
+   *
+   * @param lengthX the total field length along the X axis
+   * @return mirrored pose
+   */
+  public Pose2d reflectAcrossYAxis(Distance lengthX) {
+    return new Pose2d(lengthX.minus(m_translation.getMeasureX()), m_translation.getMeasureY(), m_rotation);
+  }
+
+  /**
+   * Reflects the {@link Pose2d} across the x-axis, flipping the Y coordinate.
+   *
+   * @param widthY the total field length along the Y axis
+   * @return mirrored pose
+   */
+  public Pose2d reflectAcrossXAxis(Distance widthY) {
+    return new Pose2d(m_translation.getMeasureX(), widthY.minus(m_translation.getMeasureY()), m_rotation);
+  }
+
+  /**
+   * Flip a {@link Pose2d} across both the y-axis and x-axis.
+   *
+   * @param lengthX the total field length along the X axis
+   * @param widthY the total field width along the Y axis
+   * @return flipped pose
+   */
+  public Pose2d mirrorAcrossCenter(Distance lengthX, Distance widthY){
+    return new Pose2d(lengthX.minus(m_translation.getMeasureX()), widthY.minus(m_translation.getMeasureY()), m_rotation);
+  }
+
   /** Pose2d protobuf for serialization. */
   public static final Pose2dProto proto = new Pose2dProto();
 

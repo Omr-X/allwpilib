@@ -362,6 +362,37 @@ public class Translation2d
         MathUtil.interpolate(this.getY(), endValue.getY(), t));
   }
 
+  /**
+   * Reflects the {@link Translation2d} across the y-axis, flipping the X coordinate.
+   *
+   * @param lengthX the total field length along the X axis
+   * @return mirrored pose
+   */
+  public Translation2d reflectAcrossYAxis(Distance lengthX) {
+    return new Translation2d(lengthX.in(Meters) - m_x, m_y);
+  }
+
+  /**
+   * Reflects the {@link Translation2d} across the x-axis, flipping the Y coordinate.
+   *
+   * @param widthY the total field length along the Y axis
+   * @return mirrored pose
+   */
+  public Translation2d reflectAcrossXAxis(Distance widthY) {
+    return new Translation2d(m_x, widthY.in(Meters) - m_y);
+  }
+
+  /**
+   * Flip a {@link Translation2d} across both the y-axis and x-axis.
+   *
+   * @param lengthX the total field length along the X axis
+   * @param widthY the total field width along the Y axis
+   * @return flipped pose
+   */
+  public  Translation2d mirrorAcrossCenter(Distance lengthX, Distance widthY) {
+    return new Translation2d(lengthX.in(Meters) - m_x, widthY.in(Meters) - m_y);
+  }
+
   /** Translation2d protobuf for serialization. */
   public static final Translation2dProto proto = new Translation2dProto();
 

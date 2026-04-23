@@ -456,6 +456,39 @@ public class Pose3d implements Interpolatable<Pose3d>, ProtobufSerializable, Str
     }
   }
 
+  /**
+   * Reflects the {@link Pose3d} across the y-axis, flipping the X coordinate.
+   *
+   * @param lengthX the total field length along the X axis
+   * @return mirrored pose
+   */
+  public Pose3d reflectAcrossYAxis(Distance lengthX) {
+    return new Pose3d(lengthX.minus(m_translation.getMeasureX()), m_translation.getMeasureY(), m_translation.getMeasureZ(),
+            m_rotation);
+  }
+
+  /**
+   * Reflects the {@link Pose3d} across the x-axis, flipping the Y coordinate.
+   *
+   * @param widthY the total field length along the Y axis
+   * @return mirrored pose
+   */
+  public Pose3d reflectAcrossXAxis(Distance widthY) {
+    return new Pose3d(m_translation.getMeasureX(), widthY.minus(m_translation.getMeasureY()), m_translation.getMeasureZ(),
+            m_rotation);
+  }
+
+  /**
+   * Flip a {@link Pose3d} across both the y-axis and x-axis.
+   *
+   * @param lengthX the total field length along the X axis
+   * @param widthY the total field width along the Y axis
+   * @return flipped pose
+   */
+  public Pose3d mirrorAcrossCenter(Distance lengthX, Distance widthY){
+    return new Pose3d(lengthX.minus(m_translation.getMeasureX()), widthY.minus(m_translation.getMeasureY()), m_translation.getMeasureZ(), m_rotation);
+  }
+
   /** Pose3d protobuf for serialization. */
   public static final Pose3dProto proto = new Pose3dProto();
 

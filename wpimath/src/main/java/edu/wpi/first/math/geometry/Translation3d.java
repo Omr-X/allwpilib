@@ -398,6 +398,38 @@ public class Translation3d
         MathUtil.interpolate(this.getZ(), endValue.getZ(), t));
   }
 
+  /**
+   * Reflects the {@link Translation3d} across the y-axis, flipping the X coordinate.
+   *
+   * @param lengthX the total field length along the X axis
+   * @return mirrored pose
+   */
+  public Translation3d reflectAcrossYAxis(Distance lengthX) {
+    return new Translation3d(
+            lengthX.in(Meters) - m_x, m_y, m_z);
+  }
+
+  /**
+   * Reflects the {@link Translation3d} across the x-axis, flipping the Y coordinate.
+   *
+   * @param widthY the total field length along the Y axis
+   * @return mirrored pose
+   */
+  public Translation3d reflectAcrossXAxis(Distance widthY) {
+    return new Translation3d(m_x, widthY.in(Meters) - m_y, m_z);
+  }
+
+  /**
+   * Flip a {@link Translation3d} across both the y-axis and x-axis.
+   *
+   * @param lengthX the total field length along the X axis
+   * @param widthY the total field width along the Y axis
+   * @return flipped pose
+   */
+  public  Translation3d mirrorAcrossCenter(Distance lengthX, Distance widthY) {
+    return new Translation3d(lengthX.in(Meters) - m_x, widthY.in(Meters) - m_y, m_z);
+  }
+
   /** Translation3d protobuf for serialization. */
   public static final Translation3dProto proto = new Translation3dProto();
 
